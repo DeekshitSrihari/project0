@@ -1,0 +1,45 @@
+create table customers (
+	  					customerCifId int unique not null,
+	  					customerFirstName varchar(60),
+	  					customerLastName varchar(60),
+	                    customerUserName varchar(60) unique not null,
+	  					customerPassword varchar(60),
+	  					accountNumber int primary key,
+	  					accountBalance int
+	  					)
+
+select*from customers ;
+
+insert into customers values(123,'Deekshit','Srihari','Sriharid','Deekshit1',325476,6000);
+insert into customers values(124,'Deepu','Gana','Ganadeep2','Gana12',325477,8000);
+
+update customers set accountBalance=accountBalance-3000 where accountNumber=325476;
+update customers set accountBalance=accountBalance+3000 where accountNumber=325477;
+
+
+create or replace procedure getCustomerBalance(
+			 customerAccountNumber int,
+			 inout customerAccountBalance  int
+)
+language plpgsql
+as $$
+begin
+	select accountBalance into customerAccountBalance from hr.customers where accountNumber=customerAccountNumber;
+commit;
+end;
+$$
+
+create table Employee (
+						employeeId int primary key,
+						employeeFirstName varchar(20),
+						employeeLastName varchar(20),
+						employeeUserName varchar(30) unique not null,
+						employeePassword varchar(30)
+						)
+
+
+select * from Employee
+
+insert into employee values(9876,'Rahul','Roy','RahulR','Roy123');
+insert into employee values(9877,'Ajay','Kassi','KassiA','Ajay456');
+insert into employee values(9878,'Swaroop','inti','SwaroopI','inti789');
